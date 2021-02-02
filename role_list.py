@@ -12,6 +12,12 @@ class Role:
                       f"Je wint met {self.faction}")
         
 
+def returnNumber(a: str) -> int:
+        if a.isdigit():
+                return int(a)
+        else:
+                return 0
+
 def main():
         town = "de dorpelingen"
         werewolf = "de weerwolven"
@@ -51,6 +57,27 @@ def main():
                     Role(werewolf, "Welp", "weet in eerste instantie niet wie zijn teamgenoten zijn, maar mag na 3 nachten kiezen welke soort wolf hij wordt"),
                     Role(werewolf, "Knuffelwolf", "mag elke nacht iemand uitkiezen om hun actie te doen laten falen")
                     ]
-        for i in rolelist:
-                i.giveDescription()
+        player_list = []
+        element_list = [[],[],[]]
+        b = 0
+        while b < 4:
+                b = input("Met hoeveel spelers speel je?\n")
+                b = returnNumber(b)
+        for i in range(b):
+                if i == 0:
+                        player_list.append("t")
+                        element_list[0].append("t")
+                elif i % 3 == 0:
+                        player_list.append("w")
+                        element_list[2].append("w")
+                elif i % 5 == 0:
+                        player_list.append("n")
+                        element_list[1].append("n")
+                else:
+                        player_list.append("t")
+                        element_list[0].append("t")
+        print(len(element_list[0]),len(element_list[1]),len(element_list[2]))
+        print(element_list)
+        #for i in rolelist:
+        #        i.giveDescription()
 main()
