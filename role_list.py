@@ -1,4 +1,4 @@
-from random import randint
+from random import randint, choice
 
 class Role:
         def __init__(self, faction, role, description):
@@ -13,7 +13,83 @@ class Role:
                       f"Je {self.description}\n" +
                       f"Je wint met {self.faction}")
 
-def returnGame_Role_list(element_list: list) -> (list):
+
+def writeRoleNotes(rolenames: list,
+                   determined_roles: list)\
+                   -> print:
+        infile = open("GAME", "w")
+        FULL_NAME = {"0ti": "Town Information",
+                      "1tk": "Town Killing",
+                      "2tp": "Town Protective",
+                      "3ts": "Town Support",
+                      "4rt": "Random Town",
+                      "5nt": "Neutral",
+                      "6wp": "Werewolf Power",
+                      "7ws": "Werewolf Support",
+                      "8wd": "Werewolf Deception",
+                      "9wi": "Werewolf Information",
+                      "Zwelp": "Welp"}
+        infile.write(f"HOST{'-'*30}\n")
+        infile.write(f"{'ROLE_OPTION':20}\tROLE\n{'_'*30}\n")
+        for i in range(len(rolenames)):
+                infile.write(f"{FULL_NAME[rolenames[i]].upper():20}"+
+                             f"\t{determined_roles[i].upper()}\n")
+        infile.write(f"\nPLAYERS{'-'*30}\n")
+        infile.write(f"{'ROLE_OPTION':20}\n{'_'*30}\n")
+        for i in range(len(rolenames)):
+                infile.write(f"{FULL_NAME[rolenames[i]].upper():20}\n")
+        infile.close()
+
+
+
+def returnGame_Role_list(game_list: list,
+                         element_list: list,
+                         mode = "D")\
+                         -> (list):
+        koppel_coin = randint(0,1)
+        if mode == "W":
+                # whatsapp-unique roles: 
+                # de medium, de postbode
+                ALL_ROLES = {"0ti": ["de blinde politieman", "de oude programmeur", "de stalker", "de chatverslaafde"],
+                             "1tk": ["de jageres", "de complotdenker"],
+                             "2tp": ["de PTSS'er", "Yeti", "Smid"],
+                             "3ts": ["de dokter", "de postbode", "de medium", "de busbestuurder","de locker"],
+                             "4rt": ["de blinde politieman", "de oude programmeur", "de stalker", "de chatverslaafde",
+                                     "de jageres", "de complotdenker",
+                                     "de PTSS'er", "Yeti", "Smid",
+                                     "de dokter", "de postbode", "de medium",
+                                     "de busbestuurder","de locker"],
+                             "5nt": ["de weerhamster", "Lilith", "Lucifer", "de grave digger", "de hacker", "de dictator"],
+                             "6wp": ["de rage wolf", "Cthulu"],
+                             "7ws": ["knuffelwolf"],
+                             "8wd": ["de witwasser","de hypnowolf", "de OCD wolf"],
+                             "9wi": ["Sherlock Wolves"],
+                             "Zwelp": ["Welp"]}
+        elif mode == "D":
+                # removed roles:
+                # de medium, de postbode
+                ALL_ROLES = {"0ti": ["de blinde politieman", "de oude programmeur", "de stalker", "de chatverslaafde"],
+                             "1tk": ["de jageres", "de complotdenker"],
+                             "2tp": ["de PTSS'er", "Yeti", "Smid"],
+                             "3ts": ["de dokter", "de busbestuurder","de locker"],
+                             "4rt": ["de blinde politieman", "de oude programmeur", "de stalker", "de chatverslaafde",
+                                     "de jageres", "de complotdenker",
+                                     "de PTSS'er", "Yeti", "Smid",
+                                     "de dokter","de busbestuurder","de locker"],
+                             "5nt": ["de weerhamster", "Lilith", "Lucifer", "de grave digger", "de hacker", "de dictator"],
+                             "6wp": ["de rage wolf", "Cthulu"],
+                             "7ws": ["knuffelwolf"],
+                             "8wd": ["de witwasser","de hypnowolf", "de OCD wolf"],
+                             "9wi": ["Sherlock Wolves"],
+                             "Zwelp": ["Welp"]}
+
+        determined_roles = []
+        for role in game_list:
+                determined_roles.append(choice(ALL_ROLES[role]))
+        return determined_roles
+
+
+def returnPlayer_Role_list(element_list: list) -> (list):
         game_list = []
         #town
         for i in range(len(element_list[0])):
@@ -27,6 +103,7 @@ def returnGame_Role_list(element_list: list) -> (list):
                         game_list.append("2tp")
                 else:
                         game_list.append("4rt")
+
         #neutrals
         for i in range(len(element_list[1])):
                 game_list.append("5nt")
@@ -110,11 +187,18 @@ def main():
         while b < 4:
                 b = input("Met hoeveel spelers speel je?\n")
                 b = returnNumber(b)
+        gamemode = "fill"
+        while gamemode not in "WD" or len(gamemode) != 1:
+                gamemode = input("Welke vorm van het spel wil je spelen? Whatsapp [W] of Discord [D]\n" +
+                                 "(De discord versie is gelimiteerder door het gebruik van voice chat en minder tijd)\n").upper()
         element_list = returnPlayer_list(b)
-        game_list = returnGame_Role_list(element_list)
+        player_list = returnPlayer_Role_list(element_list)
+        determined_roles = returnGame_Role_list(player_list, element_list, gamemode)
         for i in rolelist:
                 i.giveDescription()
         print(len(element_list[0]),len(element_list[1]),len(element_list[2]))
         print(element_list)
-        print(game_list)
+        print(player_list)
+        print(determined_roles)
+        writeRoleNotes(player_list,determined_roles)
 main()
