@@ -1,3 +1,5 @@
+from random import randint
+
 class Role:
         def __init__(self, faction, role, description):
                 self.faction = faction
@@ -6,11 +8,57 @@ class Role:
                 
 
         def giveDescription(self):
-                print(f"{'-'*30}\n"
+                print(f"{'-'*30}\n" + 
                       f"Je bent {self.role}\n" +
                       f"Je {self.description}\n" +
                       f"Je wint met {self.faction}")
-        
+
+def returnGame_Role_list(element_list: list) -> (list):
+        game_list = []
+        #town
+        for i in range(len(element_list[0])):
+                if i % 8 == 0 and i != 0:
+                        game_list.append("3ts")
+                elif i % 5 == 0 and i != 0:
+                        game_list.append("0ti")
+                elif i % 6 == 0 or i == 0:
+                        game_list.append("1tk")
+                elif i % 7 == 0 and i != 0:
+                        game_list.append("2tp")
+                else:
+                        game_list.append("4rt")
+        #neutrals
+        for i in range(len(element_list[1])):
+                game_list.append("5nt")
+
+        # werewolves
+        for i in range(len(element_list[2])):
+                if i == 0:              # power
+                        game_list.append("6wp")
+                elif i % 4 == 0:        # special
+                        game_list.append("7ws")
+                elif i % 3 == 0:        # deception
+                        game_list.append("8wd")
+                elif i % 2 == 0:        # information
+                        game_list.append("9wi")
+                else:
+                        game_list.append("Zwelp")
+        return sorted(game_list)
+
+
+def returnPlayer_list(n: int) -> (list, list):
+        element_list = [[],[],[]]
+        for i in range(n):
+                if i == 0:
+                        element_list[0].append("t")
+                elif i % 4 == 0:
+                        element_list[2].append("w")
+                elif i % 5 == 0:
+                        element_list[1].append("n")
+                else:
+                        element_list[0].append("t")
+        return element_list
+
 
 def returnNumber(a: str) -> int:
         if a.isdigit():
@@ -57,27 +105,16 @@ def main():
                     Role(werewolf, "Welp", "weet in eerste instantie niet wie zijn teamgenoten zijn, maar mag na 3 nachten kiezen welke soort wolf hij wordt"),
                     Role(werewolf, "Knuffelwolf", "mag elke nacht iemand uitkiezen om hun actie te doen laten falen")
                     ]
-        player_list = []
-        element_list = [[],[],[]]
+
         b = 0
         while b < 4:
                 b = input("Met hoeveel spelers speel je?\n")
                 b = returnNumber(b)
-        for i in range(b):
-                if i == 0:
-                        player_list.append("t")
-                        element_list[0].append("t")
-                elif i % 3 == 0:
-                        player_list.append("w")
-                        element_list[2].append("w")
-                elif i % 5 == 0:
-                        player_list.append("n")
-                        element_list[1].append("n")
-                else:
-                        player_list.append("t")
-                        element_list[0].append("t")
+        element_list = returnPlayer_list(b)
+        game_list = returnGame_Role_list(element_list)
+        for i in rolelist:
+                i.giveDescription()
         print(len(element_list[0]),len(element_list[1]),len(element_list[2]))
         print(element_list)
-        #for i in rolelist:
-        #        i.giveDescription()
+        print(game_list)
 main()
