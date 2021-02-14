@@ -63,12 +63,12 @@ def returnGame_Role_list(game_list: list,
                 ALL_ROLES = {"0ti": ["de blinde politieman", "de oude programmeur", "de stalker", "de chatverslaafde", "de verrekijker"],
                              "1tk": ["de jageres", "de complotdenker", "De Holy Knight"],
                              "2tp": ["de PTSS'er", "Yeti", "Smid"],
-                             "3ts": ["de dokter", "de postbode", "de medium", "de busbestuurder","de locker"],
+                             "3ts": ["de dokter", "de postbode", "de medium", "de busbestuurder","de locker", "het dorpsschaapje", "de directeur"],
                              "4rt": ["de blinde politieman", "de oude programmeur", "de stalker", "de chatverslaafde",
                                      "de jageres", "de complotdenker",
                                      "de PTSS'er", "Yeti", "Smid",
                                      "de dokter", "de postbode", "de medium",
-                                     "de busbestuurder","de locker"],
+                                     "de busbestuurder","de locker",  "het dorpsschaapje", "de directeur"],
                              "5nt": ["de weerhamster", "de pyromaan","de grave digger", "de hacker", "de dictator"],
                              "5cp": ["Lilith♥", "Lucifer♥"],
                              "6wp": ["de rage wolf", "Cthulu"],
@@ -82,11 +82,11 @@ def returnGame_Role_list(game_list: list,
                 ALL_ROLES = {"0ti": ["de blinde politieman", "de oude programmeur", "de stalker", "de verrekijker"],
                              "1tk": ["de jageres", "de complotdenker", "De Holy Knight"],
                              "2tp": ["de PTSS'er", "Yeti", "Smid"],
-                             "3ts": ["de dokter", "de busbestuurder","de locker"],
+                             "3ts": ["de dokter", "de busbestuurder","de locker", "het dorpsschaapje", "De directeur"],
                              "4rt": ["de blinde politieman", "de oude programmeur", "de stalker",
                                      "de jageres", "de complotdenker",
                                      "de PTSS'er", "Yeti", "Smid",
-                                     "de dokter","de busbestuurder","de locker"],
+                                     "de dokter","de busbestuurder","de locker", "het dorpsschaapje", "de directeur"],
                              "5nt": ["de weerhamster", "de pyromaan" "de grave digger", "de hacker", "de dictator"],
                              "5cp": ["Lilith♥", "Lucifer♥"],
                              "6wp": ["de rage wolf"],
@@ -217,6 +217,7 @@ def main():
                 while gamemode not in "WD" or len(gamemode) != 1:
                         gamemode = input("Welke vorm van het spel wil je spelen? Whatsapp [W] of Discord [D]\n" +
                                         "(De discord versie is gelimiteerder door het gebruik van voice chat en minder tijd)\n").upper()
+
                 element_list = returnPlayer_list(len(names))
                 player_list = returnPlayer_Role_list(element_list)
                 # print(player_list)
