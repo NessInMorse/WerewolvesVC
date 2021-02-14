@@ -56,6 +56,9 @@ def returnGame_Role_list(game_list: list,
         if koppel_coin and len(element_list[1]) > 1:
                 for i in range(2):
                         game_list[game_list.index("5nt")] = "5cp"
+        schaapje_coin = randint(0,7)
+        if not schaapje_coin and len(element_list[0]) > 5:
+                game_list[game_list.index("4rt")] = "4ds"
 
         if mode == "W":
                 # whatsapp-unique roles: 
@@ -63,12 +66,13 @@ def returnGame_Role_list(game_list: list,
                 ALL_ROLES = {"0ti": ["de blinde politieman", "de oude programmeur", "de stalker", "de chatverslaafde", "de verrekijker"],
                              "1tk": ["de jageres", "de complotdenker", "De Holy Knight"],
                              "2tp": ["de PTSS'er", "Yeti", "Smid"],
-                             "3ts": ["de dokter", "de postbode", "de medium", "de busbestuurder","de locker", "het dorpsschaapje", "de directeur"],
+                             "3ts": ["de dokter", "de postbode", "de medium", "de busbestuurder","de locker", "de directeur"],
                              "4rt": ["de blinde politieman", "de oude programmeur", "de stalker", "de chatverslaafde",
                                      "de jageres", "de complotdenker",
                                      "de PTSS'er", "Yeti", "Smid",
                                      "de dokter", "de postbode", "de medium",
-                                     "de busbestuurder","de locker",  "het dorpsschaapje", "de directeur"],
+                                     "de busbestuurder","de locker", "de directeur"],
+                             "4ds": ['het dorpsschaapje'],
                              "5nt": ["de weerhamster", "de pyromaan","de grave digger", "de hacker", "de dictator"],
                              "5cp": ["Lilith♥", "Lucifer♥"],
                              "6wp": ["de rage wolf", "Cthulu"],
@@ -82,12 +86,13 @@ def returnGame_Role_list(game_list: list,
                 ALL_ROLES = {"0ti": ["de blinde politieman", "de oude programmeur", "de stalker", "de verrekijker"],
                              "1tk": ["de jageres", "de complotdenker", "De Holy Knight"],
                              "2tp": ["de PTSS'er", "Yeti", "Smid"],
-                             "3ts": ["de dokter", "de busbestuurder","de locker", "het dorpsschaapje", "De directeur"],
+                             "3ts": ["de dokter", "de busbestuurder","de locker", "De directeur"],
                              "4rt": ["de blinde politieman", "de oude programmeur", "de stalker",
                                      "de jageres", "de complotdenker",
                                      "de PTSS'er", "Yeti", "Smid",
-                                     "de dokter","de busbestuurder","de locker", "het dorpsschaapje", "de directeur"],
-                             "5nt": ["de weerhamster", "de pyromaan" "de grave digger", "de hacker", "de dictator"],
+                                     "de dokter","de busbestuurder","de locker","de directeur"],
+                             "4ds": ["het dorpsschaapje"],
+                             "5nt": ["de weerhamster", "de pyromaan","de grave digger", "de hacker", "de dictator"],
                              "5cp": ["Lilith♥", "Lucifer♥"],
                              "6wp": ["de rage wolf"],
                              "7ws": ["knuffelwolf", "Na-aap wolf"],
