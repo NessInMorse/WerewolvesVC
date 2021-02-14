@@ -19,8 +19,8 @@ def writeRoleNotes(rolenames: list,
                    names: list,
                    version: str)\
                    -> print:
-        infile = open("GAME", "w")
-        FULL_NAME = {"0ti": "Town Information",
+        infile = open("GAME.txt", "w", encoding='utf-8')
+        FULL_NAME = { "0ti": "Town Information",
                       "1tk": "Town Killing",
                       "2tp": "Town Protective",
                       "3ts": "Town Support",
@@ -33,7 +33,7 @@ def writeRoleNotes(rolenames: list,
                       "9wi": "Werewolf Information",
                       "Zwelp": "Welp"}
         infile.write(f"HOST{'-'*15}{'DISCORD'*(version=='D')}{'WHATSAPP'*(version=='W')}{'-'*15}\n")
-        infile.write(f"{'ROLE OPTION':20}\t{'ROLE':24}\t{'NAME':20}\n{'_'*30}\n")
+        infile.write(f"{'SPACE':20}\t{'ROLE':24}\t{'NAME':20}\n{'_'*30}\n")
         for i in range(len(rolenames)):
                 name = choice(names)
                 names.remove(name)
@@ -41,7 +41,7 @@ def writeRoleNotes(rolenames: list,
                              f"\t{determined_roles[i].upper():24}" + 
                              f"\t{name}\n")
         infile.write(f"\nPLAYERS{'-'*30}\n")
-        infile.write(f"{'ROLE OPTION':20}\n{'_'*30}\n")
+        infile.write(f"{'SPACE':20}\n{'_'*30}\n")
         for i in range(len(rolenames)):
                 infile.write(f"{FULL_NAME[rolenames[i]].upper():20}\n")
         infile.close()
@@ -59,9 +59,9 @@ def returnGame_Role_list(game_list: list,
 
         if mode == "W":
                 # whatsapp-unique roles: 
-                # de medium, de postbode
-                ALL_ROLES = {"0ti": ["de blinde politieman", "de oude programmeur", "de stalker", "de chatverslaafde"],
-                             "1tk": ["de jageres", "de complotdenker"],
+                # de medium, de postbode, de chatverslaafde
+                ALL_ROLES = {"0ti": ["de blinde politieman", "de oude programmeur", "de stalker", "de chatverslaafde", "de verrekijker"],
+                             "1tk": ["de jageres", "de complotdenker", "De Holy Knight"],
                              "2tp": ["de PTSS'er", "Yeti", "Smid"],
                              "3ts": ["de dokter", "de postbode", "de medium", "de busbestuurder","de locker"],
                              "4rt": ["de blinde politieman", "de oude programmeur", "de stalker", "de chatverslaafde",
@@ -69,30 +69,30 @@ def returnGame_Role_list(game_list: list,
                                      "de PTSS'er", "Yeti", "Smid",
                                      "de dokter", "de postbode", "de medium",
                                      "de busbestuurder","de locker"],
-                             "5nt": ["de weerhamster","de grave digger", "de hacker", "de dictator"],
-                             "5cp": ["Lilith", "Lucifer"],
+                             "5nt": ["de weerhamster", "de pyromaan","de grave digger", "de hacker", "de dictator"],
+                             "5cp": ["Lilith♥", "Lucifer♥"],
                              "6wp": ["de rage wolf", "Cthulu"],
-                             "7ws": ["knuffelwolf"],
+                             "7ws": ["knuffelwolf", "Na-aap wolf"],
                              "8wd": ["de witwasser","de hypnowolf", "de OCD wolf"],
-                             "9wi": ["Sherlock Wolves"],
+                             "9wi": ["Sherlock Wolves", "de schaduw wolf"],
                              "Zwelp": ["Welp"]}
         elif mode == "D":
                 # removed roles:
-                # de medium, de postbode
-                ALL_ROLES = {"0ti": ["de blinde politieman", "de oude programmeur", "de stalker", "de chatverslaafde"],
-                             "1tk": ["de jageres", "de complotdenker"],
+                # de medium, de postbode, de chatverslaafde, Cthulu
+                ALL_ROLES = {"0ti": ["de blinde politieman", "de oude programmeur", "de stalker", "de verrekijker"],
+                             "1tk": ["de jageres", "de complotdenker", "De Holy Knight"],
                              "2tp": ["de PTSS'er", "Yeti", "Smid"],
                              "3ts": ["de dokter", "de busbestuurder","de locker"],
-                             "4rt": ["de blinde politieman", "de oude programmeur", "de stalker", "de chatverslaafde",
+                             "4rt": ["de blinde politieman", "de oude programmeur", "de stalker",
                                      "de jageres", "de complotdenker",
                                      "de PTSS'er", "Yeti", "Smid",
                                      "de dokter","de busbestuurder","de locker"],
-                             "5nt": ["de weerhamster", "de grave digger", "de hacker", "de dictator"],
-                             "5cp": ["Lilith", "Lucifer"],
-                             "6wp": ["de rage wolf", "Cthulu"],
-                             "7ws": ["knuffelwolf"],
+                             "5nt": ["de weerhamster", "de pyromaan" "de grave digger", "de hacker", "de dictator"],
+                             "5cp": ["Lilith♥", "Lucifer♥"],
+                             "6wp": ["de rage wolf"],
+                             "7ws": ["knuffelwolf", "Na-aap wolf"],
                              "8wd": ["de witwasser","de hypnowolf", "de OCD wolf"],
-                             "9wi": ["Sherlock Wolves"],
+                             "9wi": ["Sherlock Wolves", "de schaduw wolf"],
                              "Zwelp": ["Welp"]}
 
         determined_roles = []
@@ -168,11 +168,13 @@ def main():
                     Role(town, "de oude programmeur", "geeft elke nacht een rol op en krijgt 5 namen terug"),
                     Role(town, "de stalker", "kan elke nacht zien wie iemand bezoekt"),
                     Role(town, "de chatverslaafde", "kan elke nacht 1 bericht bekijken of die waar is"),
-                    Role(town, "de PTSS'er", "zal zeker sterven na 5 dagen, maar kan voor die tijd niet dood gaan"),
+                    Role(town, "de PTSS'er", "zal zeker sterven na 5 dagen, maar kan voor die tijd niet dood gaan, "+
+                                "als je wordt aangevallen / opgehangen mag je iemand aanwijzen die in plaats van jou zal sterven"),
                     Role(town, "Yeti", "kan 3 keer kiezen om naar buiten te gaan en elke actie een 50% kans geven van falen."),
                     Role(town, "Smid",  "kan elke nacht jezelf of een ander een zwaard geven om jezelf of iemand anders tegen de wolven te verdedigen"),
                     Role(town, "de jageres", "kan twee schieten op mensen in het dorp"),
                     Role(town, "de complotdenker", "kan 3 keer op alert gaan en daarbij iedereen die hem bezoekt vermoorden"),
+                    Role(town, "de Holy Knight", "kan elke nacht iemand 'unworthy' verklaren, waarbij die persoon niet mag stemmen de komende dag"),
                     Role(town, "de dokter", "kan elke nacht bij iemand op bezoek en daarbij een gok uitbrengen, dossier wordt uitgebracht bij dood"),
                     Role(town, "de postbode", "kan elke nacht een brief doorgeven van het ene naar het andere persoon"),
                     Role(town, "de medium", "kan elke nacht met de doden praten"),
@@ -191,33 +193,39 @@ def main():
                                 "Als de gok van de dictator goed is dan zal hij als enige het spel winnen. " +
                                 "Heeft hij het mis, dan wordt hij een jageres zonder kogels."),
                     Role(werewolf, "Sherlock Wolves", "vindt de exacte rol van een speler",),
+                    Role(werewolf, "de schaduw wolf", "kan elke nacht van twee personen zien wie ze bezoeken"),
                     Role(werewolf, "Rage wolf", "kan 1 keer in het spel opgeven om in 'rage modus' te gaan waarbij iedereen die dat huis bezoekt zal sterven"),
                     Role(werewolf, "Cthulu", "iedereen die hetzelfde persoon bezoekt als cthulu zal de volgende dag niet kunnen praten van angst"),
                     Role(werewolf, "witwasser", "kan elke nacht een van de weerwolven witwassen waarbij de rol op een andere rol lijkt"),
+                    Role(werewolf, "De hypnowolf", "Kan elke nacht iemand bezoeken met misinformatie, zoals dat iemand is bestuurd door de busbestuurder " +
+                                        "of is aangevallen, maar dat de smid hun leven heeft gered." ),
                     Role(werewolf, "OCD wolf", "kan 2 keer in het spel een aanval van de weerwolven cleanen waarbij de rol van de dode onherkenbaar is " +
                                 "echter weet jij dan wel welke rol die persoon had"),
                     Role(werewolf, "Welp", "weet in eerste instantie niet wie zijn teamgenoten zijn, maar mag na 3 nachten kiezen welke soort wolf hij wordt"),
-                    Role(werewolf, "Knuffelwolf", "mag elke nacht iemand uitkiezen om hun actie te doen laten falen")
+                    Role(werewolf, "Knuffelwolf", "mag elke nacht iemand uitkiezen om hun actie te doen laten falen"),
+                    Role(werewolf, "de Na-aap wolf", "kan elke nacht iemand nadoen en krijgt vervolgens de informatie die die persoon heeft verworven" +
+                                "Je ziet er dus voor informatierollen hetzelfde eruit als de echte rol die je bezoekt, ook in het graf zal je er zo uit zien")
                     ]
+        while True:
+                document = open("name.txt","r")
+                names = [i.upper() for i in document.read().split("\n")]
+                document.close()
+                print(names)
 
-        document = open("name.txt","r")
-        names = [i.upper() for i in document.read().split("\n")]
-        print(names)
 
-
-        gamemode = "fill"
-        while gamemode not in "WD" or len(gamemode) != 1:
-                gamemode = input("Welke vorm van het spel wil je spelen? Whatsapp [W] of Discord [D]\n" +
-                                 "(De discord versie is gelimiteerder door het gebruik van voice chat en minder tijd)\n").upper()
-        element_list = returnPlayer_list(len(names))
-        player_list = returnPlayer_Role_list(element_list)
-        print(player_list)
-        determined_roles = returnGame_Role_list(player_list, element_list, gamemode)
-        for i in rolelist:
-                i.giveDescription()
-        # print(len(element_list[0]),len(element_list[1]),len(element_list[2]))
-        # print(element_list)
-        # print(player_list)
-        # print(determined_roles)
-        writeRoleNotes(player_list, determined_roles, names, gamemode)
+                gamemode = "fill"
+                while gamemode not in "WD" or len(gamemode) != 1:
+                        gamemode = input("Welke vorm van het spel wil je spelen? Whatsapp [W] of Discord [D]\n" +
+                                        "(De discord versie is gelimiteerder door het gebruik van voice chat en minder tijd)\n").upper()
+                element_list = returnPlayer_list(len(names))
+                player_list = returnPlayer_Role_list(element_list)
+                # print(player_list)
+                determined_roles = returnGame_Role_list(player_list, element_list, gamemode)
+                # for i in rolelist:
+                #        i.giveDescription()
+                # print(len(element_list[0]),len(element_list[1]),len(element_list[2]))
+                # print(element_list)
+                # print(player_list)
+                # print(determined_roles)
+                writeRoleNotes(player_list, determined_roles, names, gamemode)
 main()
