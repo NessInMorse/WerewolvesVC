@@ -5,7 +5,7 @@ class Role:
                 self.faction = faction
                 self.role = role
                 self.description = description
-                
+
 
         def giveDescription(self):
                 print(f"{'-'*30}\n" + 
@@ -24,6 +24,7 @@ def writeRoleNotes(rolenames: list,
                       "1tk": "Town Killing",
                       "2tp": "Town Protective",
                       "3ts": "Town Support",
+                      "4ds": "Random Town",
                       "4rt": "Random Town",
                       "5nt": "Neutral",
                       "5cp": "Neutral",
@@ -57,7 +58,7 @@ def returnGame_Role_list(game_list: list,
                 for i in range(2):
                         game_list[game_list.index("5nt")] = "5cp"
         schaapje_coin = randint(0,7)
-        if not schaapje_coin and len(element_list[0]) > 5:
+        if not schaapje_coin and len(element_list[0]) > 7 and "4rt" in game_list:
                 game_list[game_list.index("4rt")] = "4ds"
 
         if mode == "W":
@@ -75,7 +76,7 @@ def returnGame_Role_list(game_list: list,
                              "4ds": ['het dorpsschaapje'],
                              "5nt": ["de weerhamster", "de pyromaan","de grave digger", "de hacker", "de dictator"],
                              "5cp": ["Lilith♥", "Lucifer♥"],
-                             "6wp": ["de rage wolf", "Cthulu"],
+                             "6wp": ["de rage wolf", "Cthulhu"],
                              "7ws": ["knuffelwolf", "Na-aap wolf"],
                              "8wd": ["de witwasser","de hypnowolf", "de OCD wolf"],
                              "9wi": ["Sherlock Wolves", "de schaduw wolf"],
@@ -117,9 +118,9 @@ def returnPlayer_Role_list(element_list: list) -> (list):
         for i in range(len(element_list[0])):
                 if i % 8 == 0 and i != 0:
                         game_list.append("3ts")
-                elif i % 5 == 0 and i != 0:
+                elif i % 5 == 0 or i == 0:
                         game_list.append("0ti")
-                elif i % 6 == 0 or i == 0:
+                elif i % 6 == 0 and i != 0:
                         game_list.append("1tk")
                 elif i % 7 == 0 and i != 0:
                         game_list.append("2tp")
@@ -150,7 +151,7 @@ def returnPlayer_list(n: int) -> (list, list):
         for i in range(n):
                 if i == 0:
                         element_list[0].append("t")
-                elif i % 4 == 0:
+                elif i % 3 == 0:
                         element_list[2].append("w")
                 elif i % 5 == 0:
                         element_list[1].append("n")
