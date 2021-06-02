@@ -20,7 +20,24 @@ def writeRoleNotes(rolenames: list,
                    version: str)\
                    -> print:
         infile = open("GAME.txt", "w", encoding='utf-8')
-        FULL_NAME = { "0ti": "Town Information",
+        volgorde = []
+        if version == "L":
+                FULL_NAME = {"0ti": "Town Information",
+                      "1tk": "Town Killing",
+                      "2tp": "Town Protective",
+                      "3ts": "Town Support",
+                      "4ds": "Random Town",
+                      "4rt": "Random Town",
+                      "5nt": "Neutral",
+                      "5cp": "Neutral",
+                      "6wp": "Werewolf Power",
+                      "7ws": "Werewolf Support",
+                      "Ywr": "Random Werewolf",
+                      "9wi": "Werewolf Information",
+                      "Zwelp": "Welp"}
+
+        else:
+                FULL_NAME = {"0ti": "Town Information",
                       "1tk": "Town Killing",
                       "2tp": "Town Protective",
                       "3ts": "Town Support",
@@ -33,18 +50,28 @@ def writeRoleNotes(rolenames: list,
                       "8wd": "Werewolf Deception",
                       "9wi": "Werewolf Information",
                       "Zwelp": "Welp"}
-        infile.write(f"HOST{'-'*15}{'DISCORD'*(version=='D')}{'WHATSAPP'*(version=='W')}{'-'*15}\n")
+        infile.write(f"HOST{'-'*15}{'LEKEN'*(version=='L')}{'DISCORD'*(version=='D')}{'WHATSAPP'*(version=='W')}{'-'*15}\n")
         infile.write(f"{'SPACE':20}\t{'ROLE':24}\t{'NAME':20}\n{'_'*30}\n")
+
         for i in range(len(rolenames)):
                 name = choice(names)
                 names.remove(name)
+                volgorde.append(name)
                 infile.write(f"{FULL_NAME[rolenames[i]].upper():20}"+
                              f"\t{determined_roles[i].upper():24}" + 
                              f"\t{name}\n")
+
         infile.write(f"\nPLAYERS{'-'*30}\n")
         infile.write(f"{'SPACE':20}\n{'_'*30}\n")
         for i in range(len(rolenames)):
                 infile.write(f"{FULL_NAME[rolenames[i]].upper():20}\n")
+
+        infile.write(f"\n\nSCRIPT{'-'*15}\n")
+        infile.write(f"```\n")
+        for i in range(len(volgorde)):
+                infile.write(f"Beste {volgorde[i].capitalize()}, je bent een {determined_roles[i].capitalize()}\n\n")
+        infile.write(f"```")
+
         infile.close()
 
 
@@ -54,11 +81,13 @@ def returnGame_Role_list(game_list: list,
                          mode = "D")\
                          -> (list):
         koppel_coin = randint(0,1)
-        if koppel_coin and len(element_list[1]) > 1:
+        if koppel_coin and len(element_list[1]) > 1 and mode != "L":
                 for i in range(2):
                         game_list[game_list.index("5nt")] = "5cp"
         schaapje_coin = randint(0,7)
         if not schaapje_coin and len(element_list[0]) > 7 and "4rt" in game_list:
+                game_list[game_list.index("4rt")] = "4ds"
+        elif mode == "L" and randint(0,1) and "4rt" in game_list:
                 game_list[game_list.index("4rt")] = "4ds"
 
         if mode == "W":
@@ -100,6 +129,23 @@ def returnGame_Role_list(game_list: list,
                              "8wd": ["de witwasser","de hypnowolf", "de OCD wolf"],
                              "9wi": ["Sherlock Wolves", "de schaduw wolf"],
                              "Zwelp": ["Welp"]}
+        elif mode == "L":
+                for i in game_list:
+                        ALL_ROLES = {"0ti": ["Sheriff", "stalker", "ooggetuige"],
+                                "1tk": ["Soldaat", "complotdenker", "beul"],
+                                "2tp": ["Locker", "Yeti"],
+                                "3ts": ["vervloekte", "slet"],
+                                "4rt": ["Sheriff", "stalker","ooggetuige"
+                                        "Soldaat", "Complotdenker","beul"
+                                        "Locker", "Yeti",],
+                                "4ds": ["dorpsschaapje"],
+                                "5nt": ["pyromaan","grave digger", "dienstmeisje"],
+                                "6wp": ["rage wolf"],
+                                "7ws": ["knuffelwolf"],
+                                "Ywr": ["knuffelwolf", "Sherlock Wolves", "schaduw wolf"],
+                                "9wi": ["Sherlock Wolves", "schaduw wolf"],
+                                "Zwelp": ["Welp"]}
+
 
         determined_roles = []
         c = 0 
@@ -112,7 +158,7 @@ def returnGame_Role_list(game_list: list,
         return determined_roles
 
 
-def returnPlayer_Role_list(element_list: list) -> (list):
+def returnPlayer_Role_list(element_list: list, mode="D") -> (list):
         game_list = []
         #town
         for i in range(len(element_list[0])):
@@ -131,22 +177,36 @@ def returnPlayer_Role_list(element_list: list) -> (list):
         for i in range(len(element_list[1])):
                 game_list.append("5nt")
 
-        # werewolves
-        for i in range(len(element_list[2])):
-                if i == 0:              # power
-                        game_list.append("6wp")
-                elif i % 4 == 0:        # special
-                        game_list.append("7ws")
-                elif i % 3 == 0:        # deception
-                        game_list.append("8wd")
-                elif i % 2 == 0:        # information
-                        game_list.append("9wi")
-                else:
-                        game_list.append("Zwelp")
+        if mode != "L":
+                # werewolves
+                for i in range(len(element_list[2])):
+                        if i == 0:              # power
+                                game_list.append("6wp")
+                        elif i % 4 == 0:        # special
+                                game_list.append("7ws")
+                        elif i % 3 == 0:        # deception
+                                game_list.append("8wd")
+                        elif i % 2 == 0:        # information
+                                game_list.append("9wi")
+                        else:
+                                game_list.append("Zwelp")
+        
+        else:
+                for i in range(len(element_list[2])):
+                        if i == 0:              # power
+                                game_list.append("6wp")
+                        elif i % 4 == 0:        # special
+                                game_list.append("7ws")
+                        elif i % 3 == 0:        # deception
+                                game_list.append("Ywr")
+                        elif i % 2 == 0:        # information
+                                game_list.append("9wi")
+                        else:
+                                game_list.append("Zwelp")
         return sorted(game_list)
 
 
-def returnPlayer_list(n: int) -> (list, list):
+def returnPlayer_list(n: int) -> list:
         element_list = [[],[],[]]
         for i in range(n):
                 if i == 0:
@@ -220,12 +280,12 @@ def main():
 
 
                 gamemode = "fill"
-                while gamemode not in "WD" or len(gamemode) != 1:
-                        gamemode = input("Welke vorm van het spel wil je spelen? Whatsapp [W] of Discord [D]\n" +
+                while gamemode not in "WDL" or len(gamemode) != 1:
+                        gamemode = input("Welke vorm van het spel wil je spelen? Whatsapp [W], Discord [D] of Leken Editie [L]\n" +
                                         "(De discord versie is gelimiteerder door het gebruik van voice chat en minder tijd)\n").upper()
 
                 element_list = returnPlayer_list(len(names))
-                player_list = returnPlayer_Role_list(element_list)
+                player_list = returnPlayer_Role_list(element_list, gamemode)
                 # print(player_list)
                 determined_roles = returnGame_Role_list(player_list, element_list, gamemode)
                 # for i in rolelist:
